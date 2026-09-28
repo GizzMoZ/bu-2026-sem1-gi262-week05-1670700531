@@ -32,20 +32,81 @@ namespace Assignment
         /// <summary>
         /// เรียงลำดับตัวเลขจากมากไปน้อยโดยใช้ Selection Sort
         /// </summary>
-        /// <param name="numbers"></param>
-        public int[] AS01_SelectionSortDescending(int[] numbers);
+        /// <param name="numbers">อาร์เรย์ที่ต้องการเรียง</param>
+        /// <returns>อาร์เรย์ที่เรียงจากมากไปน้อย</returns>
+        public int[] AS01_SelectionSortDescending(int[] numbers)
+        {
+            for (int i = 0; i < numbers.Length - 1; i++)
+            {
+                int maxIndex = i;
+                for (int j = i + 1; j < numbers.Length; j++)
+                {
+                    if (numbers[j] > numbers[maxIndex])
+                        maxIndex = j;
+                }
+
+                int temp = numbers[i];
+                numbers[i] = numbers[maxIndex];
+                numbers[maxIndex] = temp;
+            }
+
+            return numbers;
+        }
 
         /// <summary>
         /// เรียงลำดับตัวเลขจากมากไปน้อยโดยใช้ Bubble Sort
         /// </summary>
-        /// <param name="numbers"></param>
-        public int[] AS02_BubbleSortDescending(int[] numbers);
+        /// <param name="numbers">อาร์เรย์ที่ต้องการเรียง</param>
+        /// <returns>อาร์เรย์ที่เรียงจากมากไปน้อย</returns>
+        public int[] AS02_BubbleSortDescending(int[] numbers)
+        {
+            for (int i = 0; i < numbers.Length - 1; i++)
+            {
+                bool swapped = false;
+
+                for (int j = 0; j < numbers.Length - 1 - i; j++)
+                {
+                    // สลับถ้าตัวซ้ายน้อยกว่าตัวขวา (ให้ค่ามากไปทางซ้าย)
+                    if (numbers[j] < numbers[j + 1])
+                    {
+                        int temp = numbers[j];
+                        numbers[j] = numbers[j + 1];
+                        numbers[j + 1] = temp;
+                        swapped = true;
+                    }
+                }
+
+                // ถ้ารอบนี้ไม่มีการสลับ แปลว่าเรียงเสร็จแล้ว
+                if (!swapped) break;
+            }
+
+            return numbers;
+        }
 
         /// <summary>
         /// เรียงลำดับตัวเลขจากมากไปน้อยโดยใช้ Insertion Sort
         /// </summary>
-        /// <param name="numbers"></param>
-        public int[] AS03_InsertionSortDescending(int[] numbers);
+        /// <param name="numbers">อาร์เรย์ที่ต้องการเรียง</param>
+        /// <returns>อาร์เรย์ที่เรียงจากมากไปน้อย</returns>
+        public int[] AS03_InsertionSortDescending(int[] numbers)
+        {
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                int key = numbers[i];
+                int j = i - 1;
+
+                // เลื่อนตัวที่น้อยกว่า key ไปทางขวา เพื่อเปิดช่องให้ key
+                while (j >= 0 && numbers[j] < key)
+                {
+                    numbers[j + 1] = numbers[j];
+                    j--;
+                }
+
+                numbers[j + 1] = key;
+            }
+
+            return numbers;
+        }
 
         /// <summary>
         /// ค้นหาตัวเลขที่มีค่ามากเป็นอันดับสองใน array
